@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   n8n:
-    image: n8nio/n8n:latest
+    image: n8nio/n8n:1.53.2
     environment:
       - N8N_PORT=${N8N_PORT}
       - DB_TYPE=${DB_TYPE}
