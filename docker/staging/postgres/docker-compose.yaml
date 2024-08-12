@@ -3,6 +3,7 @@ version: '3.8'
 services:
   postgres:
     image: postgres:16.4
+    container_name: postgres
     environment:
       - POSTGRES_USER=${POSTGRES_USER}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
@@ -14,4 +15,4 @@ services:
 
 networks:
   backend:
-    external: false
+    external: true

@@ -5,6 +5,7 @@
 # services:
 #   # traefik:
 #   #   image: traefik:v3.1.2
+#   #   container_name: traefik
 #     # command:
 #     # # investigate and adjust these commands as necessary
 #     #   - "--api.insecure=true"
@@ -21,4 +22,4 @@
 
 # networks:
 #   web:
-#     external: false
+#     external: true

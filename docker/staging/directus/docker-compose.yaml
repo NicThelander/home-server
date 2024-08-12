@@ -1,8 +1,17 @@
 version: '3.8'
 
 services:
+  directus_redis:
+    image: redis:latest
+    container_name: directus_redis
+    ports:
+      - "6379:6379"
+    networks:
+      - backend
+
   directus:
     image: directus/directus:11.0.1
+    container_name: directus
     environment:
       - KEY=${KEY}
       - SECRET=${SECRET}
@@ -14,12 +23,18 @@ services:
       - DB_PASSWORD=${DB_PASSWORD}
       - ADMIN_EMAIL=${ADMIN_EMAIL}
       - ADMIN_PASSWORD=${ADMIN_PASSWORD}
+      - CACHE_ENABLED=${CACHE_ENABLED}
+      - CACHE_STORE=${CACHE_STORE}
+      - CACHE_AUTO_PURGE=${CACHE_AUTO_PURGE}
+      - REDIS=${REDIS}
     ports:
       - "8055:8055"
     volumes:
-      - ./directus_data:/var/lib/directus
+      - directus_data:/var/lib/directus
     depends_on:
-      - postgres
+      - directus_redis
+    # TODO: set up depends on with an override
+    #   - postgres
     networks:
       - web
       - backend
@@ -30,6 +45,10 @@ services:
 
 networks:
   web:
-    external: false
+    external: true
   backend:
-    external: false
+    external: true
+
+volumes:
+  directus_data:
+    driver: local

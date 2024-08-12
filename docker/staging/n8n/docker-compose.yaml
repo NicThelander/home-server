@@ -3,6 +3,7 @@ version: '3.8'
 services:
   n8n:
     image: n8nio/n8n:1.53.2
+    container_name: n8n
     environment:
       - N8N_PORT=${N8N_PORT}
       - DB_TYPE=${DB_TYPE}
@@ -14,12 +15,14 @@ services:
       - N8N_BASIC_AUTH_ACTIVE=${N8N_BASIC_AUTH_ACTIVE}
       - N8N_BASIC_AUTH_USER=${N8N_BASIC_AUTH_USER}
       - N8N_BASIC_AUTH_PASSWORD=${N8N_BASIC_AUTH_PASSWORD}
+      - N8N_SECURE_COOKIE=${N8N_SECURE_COOKIE}
     ports:
       - "5678:5678"
     volumes:
-      - ./n8n_data:/home/node/.n8n
-    depends_on:
-      - postgres
+      - n8n_data:/home/node/.n8n
+    # TODO: set up depends on with an override
+    # depends_on:
+    #   - postgres
     networks:
       - web
       - backend
@@ -30,6 +33,10 @@ services:
 
 networks:
   web:
-    external: false
+    external: true
   backend:
-    external: false
+    external: true
+
+volumes:
+  n8n_data:
+    driver: local
