@@ -1,0 +1,24 @@
+# not using this yet as we'll only be accessing it locally
+
+# version: '3.8'
+
+# services:
+#   # traefik:
+#   #   image: traefik:v3.1.2
+#     # command:
+#     # # investigate and adjust these commands as necessary
+#     #   - "--api.insecure=true"
+#     #   - "--providers.docker=true"
+#     #   - "--entrypoints.web.address=:80"
+#     # ports:
+#     #   - "80:80"
+#     #   - "8080:8080"
+#     # volumes:
+#     #   - "/var/run/docker.sock:/var/run/docker.sock:ro"
+#     #   - "./traefik/traefik.yml:/etc/traefik/traefik.yml"
+#     # networks:
+#     #   - web
+
+# networks:
+#   web:
+#     external: false

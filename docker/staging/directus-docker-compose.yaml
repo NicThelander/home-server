@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  directus:
+    image: directus/directus:latest
+    environment:
+      - KEY=${KEY}
+      - SECRET=${SECRET}
+      - DB_CLIENT=${DB_CLIENT}
+      - DB_HOST=${DB_HOST}
+      - DB_PORT=${DB_PORT}
+      - DB_DATABASE=${DB_DATABASE}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - ADMIN_EMAIL=${ADMIN_EMAIL}
+      - ADMIN_PASSWORD=${ADMIN_PASSWORD}
+    ports:
+      - "8055:8055"
+    volumes:
+      - ./directus_data:/var/lib/directus
+    depends_on:
+      - postgres
+    networks:
+      - web
+      - backend
+    # labels:
+    #   - "traefik.enable=true"
+    #   - "traefik.http.routers.directus.rule=Host(`directus.localhost`)"
+    #   - "traefik.http.services.directus.loadbalancer.server.port=8055"
+
+networks:
+  web:
+    external: false
+  backend:
+    external: false
